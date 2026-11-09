@@ -1,0 +1,7 @@
+1) Copy src/components/AboutLuxury.vue into your existing project.
+2) Copy public/images/about-*.webp into public/images/.
+3) Paste ABOUT-STYLES.css at the end of your src/style.css.
+4) At the top of App.vue, add: import AboutLuxury from './components/AboutLuxury.vue'
+5) Replace the old about template with:
+<template v-else-if="route.name==='about'"><AboutLuxury :lang="lang" @quote="goQuote()" /></template>
+NOTE: If you prefer not to edit, use the full project ZIP instead.

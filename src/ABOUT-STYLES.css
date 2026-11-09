@@ -1,0 +1,199 @@
+
+/* PROHERB / ABOUT LUXURY — scoped by .about-luxury */
+.about-luxury{--ab-green:#063b32;--ab-gold:#c4a057;color:#0c3e34;overflow:hidden}
+.about-luxury .ab-section{padding-top:112px;padding-bottom:112px}
+.about-luxury .ab-kicker{display:inline-flex;align-items:center;gap:12px;font-weight:800;font-size:11px;letter-spacing:.2em;color:#497264;text-transform:uppercase}
+.about-luxury .ab-kicker i{display:inline-block;width:27px;height:2px;background:var(--ab-gold)}
+.about-luxury .ab-kicker.ab-light{color:#e4efe9}
+.about-luxury h1,.about-luxury h2{font-family:'Playfair Display',Georgia,serif;letter-spacing:-.045em;font-weight:600}
+.about-luxury h2{font-size:clamp(38px,4.3vw,65px);line-height:1.11;margin:22px 0 25px}
+.about-luxury .ab-hero{position:relative;min-height:740px;display:flex;align-items:center;background:#06372f;color:#fff;isolation:isolate}
+.about-luxury .ab-hero-media,.about-luxury .ab-hero-overlay{position:absolute;inset:0;z-index:-1}
+.about-luxury .ab-hero-media img{height:100%;width:100%;object-fit:cover;object-position:center 45%}
+.about-luxury .ab-hero-overlay{background:linear-gradient(90deg,rgba(3,37,31,.97) 0%,rgba(3,42,35,.91) 34%,rgba(6,41,35,.50) 63%,rgba(8,54,43,.08) 100%)}
+.about-luxury .ab-hero-content{padding-top:95px;padding-bottom:105px;position:relative;z-index:1}
+.about-luxury .ab-hero h1{font-size:clamp(52px,6.5vw,100px);line-height:1.06;max-width:930px;margin:28px 0}
+.about-luxury .ab-hero h1 em{color:#dfbc71;font-weight:500}
+.about-luxury .ab-hero p{font-size:17px;line-height:1.85;color:#e6eee9;max-width:560px}
+.about-luxury .ab-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:35px}
+.about-luxury .ab-btn{display:inline-flex;align-items:center;justify-content:center;gap:20px;border:1px solid transparent;border-radius:7px;padding:16px 23px;font-weight:800;font-size:13px;transition:transform .25s,background .25s}
+.about-luxury .ab-btn:hover{transform:translateY(-3px)}
+.about-luxury .ab-btn-gold{color:#163d33;background:linear-gradient(135deg,#efd897,#c59d4c)}
+.about-luxury .ab-btn-glass{color:white;border-color:#ffffff60;background:#ffffff18}
+.about-luxury .ab-btn-dark{background:var(--ab-green);color:white}
+.about-luxury .ab-scroll{display:flex;align-items:center;gap:15px;margin-top:94px;color:#f0eee2;letter-spacing:.21em;font-size:10px;font-weight:800}
+.about-luxury .ab-hero-index{position:absolute;right:6%;bottom:35px;font-size:12px;letter-spacing:.22em;color:#fff9}
+.about-luxury .ab-hero-index b{color:#e0bc74}
+.about-luxury .ab-story{display:grid;grid-template-columns:1fr 1fr;gap:9%;align-items:center}
+.about-luxury .ab-story-copy p,.about-luxury .ab-center-head p,.about-luxury .ab-split-heading p,.about-luxury .ab-partnership p{font-size:15px;line-height:1.95;color:#64766d}
+.about-luxury .ab-story-visual{position:relative;height:550px;border-radius:18px;overflow:hidden;box-shadow:0 24px 70px #0b442518}
+.about-luxury .ab-story-visual img{width:100%;height:100%;object-fit:cover;object-position:50% 50%}
+.about-luxury .ab-image-mark{position:absolute;bottom:22px;left:22px;background:#063f36ed;color:#fff;border:1px solid #ffffff48;padding:20px 25px;border-radius:5px;display:flex;flex-direction:column;gap:3px}
+.about-luxury .ab-image-mark span{font:600 25px Georgia,serif}.about-luxury .ab-image-mark small{font-size:9px;letter-spacing:.22em;color:#dec385}
+.about-luxury .ab-since{display:inline-flex;align-items:center;gap:12px;color:#b58d43;font-weight:800;font-size:12px;letter-spacing:.12em;margin-top:19px}
+.about-luxury .ab-philosophy{background:#f4f8f5}
+.about-luxury .ab-center-head{text-align:center;max-width:850px;margin:0 auto 45px}
+.about-luxury .ab-center-head .ab-kicker{justify-content:center}
+.about-luxury .ab-values{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px}
+.about-luxury .ab-values article{padding:38px;border:1px solid #dde8df;border-radius:12px;background:white;min-height:300px;transition:transform .25s,box-shadow .25s}
+.about-luxury .ab-values article:hover{transform:translateY(-6px);box-shadow:0 18px 35px #0e503118}
+.about-luxury .ab-value-icon{width:62px;height:62px;display:grid;place-items:center;background:#edf5f0;border-radius:50%;color:#0b513e;margin-bottom:35px}
+.about-luxury .ab-values article>span{font-size:10px;color:#b18d4a;letter-spacing:.15em;font-weight:800}
+.about-luxury .ab-values h3{font-size:20px;margin:13px 0}.about-luxury .ab-values p{font-size:13px;color:#63756b;line-height:1.8}
+.about-luxury .ab-journey-head{max-width:690px}.about-luxury .ab-timeline{display:grid;grid-template-columns:repeat(4,1fr);margin-top:50px;gap:0}
+.about-luxury .ab-timeline article{padding:31px 25px 18px;border-top:2px solid #d7e3dc;position:relative}
+.about-luxury .ab-timeline article:before{content:'';position:absolute;width:13px;height:13px;top:-8px;left:25px;border-radius:50%;background:#b9964b;box-shadow:0 0 0 6px #f7f4eb}
+.about-luxury .ab-timeline b{font:600 33px Georgia,serif;color:#064739}.about-luxury .ab-timeline p{font-size:13px;line-height:1.85;color:#687970;margin-top:19px}
+.about-luxury .ab-portfolio{background:#f7f9f7}
+.about-luxury .ab-split-heading{display:flex;justify-content:space-between;align-items:end;gap:55px;margin-bottom:38px}
+.about-luxury .ab-split-heading h2{max-width:670px;margin-bottom:0}
+.about-luxury .ab-split-heading p{max-width:360px}
+.about-luxury .ab-product-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.about-luxury .ab-product-card{background:#fff;border:1px solid #e0e8e1;border-radius:11px;overflow:hidden;padding:24px;min-width:0;transition:transform .25s,box-shadow .25s}
+.about-luxury .ab-product-card:hover{transform:translateY(-5px);box-shadow:0 15px 30px #13382716}
+.about-luxury .ab-card-index{display:block;font-size:9px;font-weight:800;letter-spacing:.16em;color:#bb964a}
+.about-luxury .ab-product-card img{height:210px;width:100%;object-fit:contain;margin:12px auto 18px}
+.about-luxury .ab-product-card h3{font-size:17px;margin:0;min-height:38px}
+.about-luxury .ab-portfolio-link{display:flex;align-items:center;gap:12px;width:max-content;margin:35px auto 0;color:#0b4939;font-weight:800;font-size:13px;border-bottom:1px solid #bda15b;padding-bottom:10px}
+.about-luxury .ab-reach{background:linear-gradient(118deg,#093d33,#06291f);color:white;padding-bottom:0}
+.about-luxury .ab-reach-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:10%}
+.about-luxury .ab-reach h2{color:white}.about-luxury .ab-reach-intro>p{color:#c3d7cd;font-size:15px;line-height:1.9;max-width:670px}
+.about-luxury .ab-markets{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:36px 0 0}
+.about-luxury .ab-markets span{display:flex;align-items:center;gap:8px;font-size:12px;color:#e7f0e9}
+.about-luxury .ab-markets svg{color:#dabb73;flex-shrink:0}
+.about-luxury .ab-reach-stat{border-left:1px solid #ffffff30;padding-left:46px;display:grid;gap:21px;align-content:center}
+.about-luxury .ab-stat{padding-bottom:18px;border-bottom:1px solid #ffffff25;display:flex;flex-direction:column;gap:7px}
+.about-luxury .ab-stat small{font-size:9px;font-weight:800;letter-spacing:.16em;color:#dec184}
+.about-luxury .ab-stat strong{font-size:43px;letter-spacing:-.06em;color:white}
+.about-luxury .ab-note{font-size:10px;line-height:1.5;color:#a9c8b9}
+.about-luxury .ab-marquee{margin-top:95px;border-top:1px solid #ffffff23;overflow:hidden;white-space:nowrap;opacity:.16}
+.about-luxury .ab-marquee>div{display:flex;gap:42px;width:max-content;animation:abMarquee 40s linear infinite;padding:13px 0}
+.about-luxury .ab-marquee span{font:700 33px Manrope,Arial,sans-serif}
+@keyframes abMarquee{to{transform:translateX(-50%)}}
+.about-luxury .ab-partnership{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:9%}
+.about-luxury .ab-partnership-photo{height:450px;border-radius:15px;overflow:hidden}
+.about-luxury .ab-partnership-photo img{width:100%;height:100%;object-fit:cover}
+.about-luxury .ab-end{background:#eef4f0;text-align:center;padding:60px 0 0}
+.about-luxury .ab-end span{font-size:11px;font-weight:800;letter-spacing:.2em;color:#547b68}
+.about-luxury .ab-end strong{display:block;font:600 clamp(90px,17vw,260px) Georgia,serif;letter-spacing:-.095em;line-height:.95;color:#0b4235;opacity:.95;margin-top:22px}
+.about-luxury .ab-end strong .ab-end-gold{font:700 30px Georgia,serif;vertical-align:top;color:#be9a4d}
+.about-luxury .about-reveal{opacity:0;transform:translateY(26px);transition:opacity .72s ease,transform .72s ease}
+.about-luxury .about-reveal.is-visible{opacity:1;transform:translateY(0)}
+.about-luxury.about-rtl .ab-timeline article:before{left:auto;right:25px}
+.about-luxury.about-rtl .ab-reach-stat{border-left:0;border-right:1px solid #ffffff30;padding-left:0;padding-right:46px}
+.about-luxury.about-rtl .ab-hero-overlay{background:linear-gradient(270deg,rgba(3,37,31,.97) 0%,rgba(3,42,35,.91) 34%,rgba(6,41,35,.50) 63%,rgba(8,54,43,.08) 100%)}
+.about-luxury.about-rtl .ab-hero-index{right:auto;left:6%}
+@media(max-width:900px){
+.about-luxury .ab-section{padding-top:75px;padding-bottom:75px}
+.about-luxury .ab-hero{min-height:650px}.about-luxury .ab-hero h1{font-size:clamp(48px,7vw,76px)}
+.about-luxury .ab-story,.about-luxury .ab-partnership,.about-luxury .ab-reach-grid{gap:35px}
+.about-luxury .ab-story-visual{height:430px}
+.about-luxury .ab-product-grid{grid-template-columns:repeat(2,1fr)}
+.about-luxury .ab-timeline{grid-template-columns:repeat(2,1fr);row-gap:25px}
+.about-luxury .ab-reach-stat{padding-left:25px}
+}
+@media(max-width:600px){
+.about-luxury .ab-hero{min-height:660px}.about-luxury .ab-hero-content{padding:70px 0 85px}
+.about-luxury .ab-hero-overlay{background:linear-gradient(90deg,#042b25f2,#083d34a1)}
+.about-luxury .ab-hero h1{font-size:clamp(45px,11vw,61px)}.about-luxury .ab-hero p{font-size:14px}
+.about-luxury .ab-scroll{margin-top:60px}.about-luxury .ab-hero-index{display:none}
+.about-luxury .ab-story,.about-luxury .ab-partnership,.about-luxury .ab-reach-grid{grid-template-columns:1fr}
+.about-luxury .ab-story-visual{height:390px}.about-luxury .ab-values{grid-template-columns:1fr}
+.about-luxury .ab-values article{min-height:0;padding:28px}.about-luxury .ab-value-icon{margin-bottom:20px}
+.about-luxury .ab-timeline{grid-template-columns:1fr}.about-luxury .ab-timeline article{padding-bottom:2px}
+.about-luxury .ab-split-heading{display:block}.about-luxury .ab-product-grid{gap:9px}
+.about-luxury .ab-product-card{padding:13px}.about-luxury .ab-product-card img{height:145px}
+.about-luxury .ab-product-card h3{font-size:13px}.about-luxury .ab-card-index{font-size:8px}
+.about-luxury .ab-reach-stat{padding:25px 0 0;border:0}.about-luxury.about-rtl .ab-reach-stat{padding:25px 0 0;border:0}
+.about-luxury .ab-marquee{margin-top:55px}
+.about-luxury .ab-partnership-photo{height:270px}.about-luxury .ab-end strong{font-size:clamp(60px,17vw,108px)}
+}
+@media(prefers-reduced-motion:reduce){.about-luxury .about-reveal{opacity:1;transform:none;transition:none}.about-luxury .ab-marquee>div{animation:none}}
+
+/* PROHERB - Extended About Story */
+
+.ab-story {
+  align-items: center;
+  min-height: 780px;
+  gap: 65px;
+}
+
+.ab-story-visual {
+  width: 100%;
+  height: auto;
+  min-height: 650px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+.ab-story-visual img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: none;
+  object-fit: contain;
+  border-radius: 18px;
+}
+
+.ab-story-copy {
+  padding-top: 45px;
+  padding-bottom: 45px;
+}
+
+.ab-story-copy p {
+  font-size: 15px;
+  line-height: 1.95;
+  margin-bottom: 21px;
+  color: #586d64;
+}
+
+@media (max-width: 900px) {
+  .ab-story {
+    min-height: 0;
+    gap: 30px;
+  }
+
+  .ab-story-visual {
+    min-height: 0;
+  }
+
+  .ab-story-copy {
+    padding: 20px 0;
+  }
+}
+
+/* PROHERB About - Story Image */
+
+.ab-story {
+  align-items: start !important;
+  gap: 65px;
+}
+
+.ab-story-visual {
+  align-self: stretch;
+  width: 100%;
+  min-height: 850px;
+  height: auto;
+  margin-top: 0 !important;
+  overflow: hidden;
+  border-radius: 18px;
+}
+
+.ab-story-visual img {
+  width: 100%;
+  height: 100%;
+  min-height: 850px;
+  max-height: none;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 18px;
+}
+
+@media (max-width: 900px) {
+  .ab-story-visual,
+  .ab-story-visual img {
+    min-height: 450px;
+  }
+}
