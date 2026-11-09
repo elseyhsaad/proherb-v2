@@ -6,7 +6,8 @@ import {
   Layers3, Leaf, FlaskConical, Handshake, Sparkles,
   MapPin, Award, HeartPulse, Check, MoveUpRight
 } from 'lucide-vue-next'
-
+const asset = (path) =>
+  import.meta.env.BASE_URL + path.replace(/^\/+/, '')
 const props = defineProps({ lang: { type: String, default: 'en' } })
 const emit = defineEmits(['quote'])
 const pageRef = ref(null)
@@ -87,7 +88,7 @@ onUnmounted(() => observer?.disconnect())
 <template>
  <div ref="pageRef" class="about-luxury" :class="{ 'about-rtl': lang === 'ar' }">
   <section class="ab-hero">
-   <div class="ab-hero-media"><img src="/images/pro3.png" alt="Bright professional laboratory with botanical ingredients" /></div>
+   <div class="ab-hero-media"><img :src="asset('/images/pro3.png')"alt="Bright professional laboratory with botanical ingredients" /></div>
    <div class="ab-hero-overlay"></div>
    <div class="container ab-hero-content">
     <span class="ab-kicker ab-light"><i></i>{{t.eyebrow}}</span>
@@ -101,7 +102,7 @@ onUnmounted(() => observer?.disconnect())
 
   <section id="about-story" class="ab-story container ab-section">
    <div class="ab-story-copy about-reveal"><span class="ab-kicker"><i></i>{{t.storyEyebrow}}</span><h2>{{t.storyTitle}}</h2><p>{{t.storyA}}</p><p>{{t.storyB}}</p><span class="ab-since"><Leaf :size="21"/> {{t.since}}</span></div>
-   <div class="ab-story-visual about-reveal"><img src="/images/pro4.png" loading="lazy" alt="Botanical extraction in an advanced laboratory"/></div>
+   <div class="ab-story-visual about-reveal"><img :src="asset('/images/pro4.png')"  loading="lazy" alt="Botanical extraction in an advanced laboratory"/></div>
   </section>
 
   <section class="ab-philosophy ab-section">
@@ -139,7 +140,7 @@ onUnmounted(() => observer?.disconnect())
    <div class="ab-marquee" aria-hidden="true"><div><span v-for="(brand,i) in [...brands,...brands]" :key="i">{{brand}}</span></div></div>
   </section>
 
-  <section class="ab-partnership ab-section container"><div class="ab-partnership-photo about-reveal"><img src="/images/about-partners.webp" loading="lazy" alt="Business partners shaking hands"/></div><div class="ab-partnership-copy about-reveal"><span class="ab-kicker"><i></i>{{t.partnershipEyebrow}}</span><h2>{{t.partnershipTitle}}</h2><p>{{t.partnershipText}}</p><button class="ab-btn ab-btn-dark" @click="emit('quote')">{{t.contact}} <ArrowUpRight :size="18"/></button></div></section>
+  <section class="ab-partnership ab-section container"><div class="ab-partnership-photo about-reveal"><img :src="asset('/images/about-partners.webp')" loading="lazy" alt="Business partners shaking hands"/></div><div class="ab-partnership-copy about-reveal"><span class="ab-kicker"><i></i>{{t.partnershipEyebrow}}</span><h2>{{t.partnershipTitle}}</h2><p>{{t.partnershipText}}</p><button class="ab-btn ab-btn-dark" @click="emit('quote')">{{t.contact}} <ArrowUpRight :size="18"/></button></div></section>
 
  </div>
 </template>
