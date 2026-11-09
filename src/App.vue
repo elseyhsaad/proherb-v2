@@ -6,8 +6,12 @@ import {products,brands,categories} from './data'
 import AboutLuxury from './components/AboutLuxury.vue'
 // Medical hero slider: independent from scrolling, no WebGL or 3D.
 
-const asset = (path) =>
-  import.meta.env.BASE_URL + path.replace(/^\/+/, '')
+
+const asset = (path) => {
+  const cleanPath = path.startsWith('/') ? path.slice(1) : path
+  return import.meta.env.BASE_URL + cleanPath
+}
+
 const flagsOpen = ref(false)
 const heroSlides = [
   { image: '/images/hero-proherb.webp', eyebrow: 'PROHERB · THE NATURAL LIFE', title: 'NUTRACEUTICAL EXCELLENCE', position: 'center center' },

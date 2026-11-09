@@ -6,8 +6,12 @@ import {
   Layers3, Leaf, FlaskConical, Handshake, Sparkles,
   MapPin, Award, HeartPulse, Check, MoveUpRight
 } from 'lucide-vue-next'
-const asset = (path) =>
-  import.meta.env.BASE_URL + path.replace(/^\/+/, '')
+
+const asset = (path) => {
+  const cleanPath = path.startsWith('/') ? path.slice(1) : path
+  return import.meta.env.BASE_URL + cleanPath
+}
+
 const props = defineProps({ lang: { type: String, default: 'en' } })
 const emit = defineEmits(['quote'])
 const pageRef = ref(null)
