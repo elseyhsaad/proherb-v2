@@ -4,6 +4,9 @@ import {RouterLink,useRoute,useRouter} from 'vue-router'
 import {ArrowRight,ArrowUpRight,ChevronDown,Menu,X,Globe2,CalendarDays,ChartNoAxesColumnIncreasing,Layers3,Leaf,FlaskConical,ShieldCheck,Package,HeartPulse,Instagram,Facebook,Linkedin,Youtube,Mail,MapPin,Phone,MessageCircle,Dumbbell,Baby,Flower2,Pill,Droplets,Search,Check,Copy,ArrowLeft,MoveDown,Play,Send} from 'lucide-vue-next'
 import {products,brands,categories} from './data'
 import AboutLuxury from './components/AboutLuxury.vue'
+import ProductsLuxury from './components/ProductsLuxury.vue'
+import { wellnessCategories } from './wellnessCategories'
+import './products-luxury.css'
 // Medical hero slider: independent from scrolling, no WebGL or 3D.
 
 
@@ -122,7 +125,19 @@ const related=computed(()=>products.filter(p=>p.id!==activeProduct.value?.id&&p.
 const form=ref({name:'',company:'',country:'',email:'',phone:'',product:'',quantity:'',message:''})
 function setLang(v){lang.value=v;localStorage.setItem('proherb-v2-lang',v)}
 function goQuote(product=''){form.value.product=product||form.value.product;router.push('/contact')}
-function openCat(cat){categoryFilter.value=cat;brandFilter.value='All';term.value='';router.push('/products')}
+function openCat(cat) {
+  const legacyToNew = {
+    'Vitamins & Minerals':'vitamins', 'Gummies':'vitamins',
+    'Herbal Oils':'herbal', 'Sports & Energy':'sport',
+    'Kids & Family':'vitamins', 'Beauty & Care':'beauty'
+  }
+  const id = legacyToNew[cat] || cat
+  router.push({path:'/products', query:id==='All' ? {} : {category:id}})
+}
+const homeCategory = ref('all')
+function browseHomeCategory() {
+  router.push({path:'/products', query:homeCategory.value==='all' ? {} : {category:homeCategory.value}})
+}
 function inquiry(){return `PROHERB — Request a Quote\nName: ${form.value.name}\nCompany: ${form.value.company}\nCountry: ${form.value.country}\nEmail: ${form.value.email}\nPhone: ${form.value.phone}\nProducts: ${form.value.product}\nQuantity: ${form.value.quantity}\nMessage: ${form.value.message}`}
 function prepareEmail(){if(!company.email)return copyInquiry();window.location.href=`mailto:${company.email}?subject=${encodeURIComponent('PROHERB — Request a Quote')}&body=${encodeURIComponent(inquiry())}`}
 function prepareWa(){if(!company.whatsapp)return copyInquiry();window.open(`https://wa.me/${company.whatsapp.replace(/\D/g,'')}?text=${encodeURIComponent(inquiry())}`,'_blank','noopener,noreferrer')}
@@ -138,7 +153,18 @@ onMounted(()=>{document.documentElement.dir=isRTL.value?'rtl':'ltr';document.doc
 <div class="site-shell" :class="{'is-rtl':isRTL}">
   <header class="site-header">
     <RouterLink to="/" class="logo-link" aria-label="PROHERB home"><img :src="asset('/logo-header.png')" alt="PROHERB — The Natural Life" /></RouterLink>
-    <nav class="nav-desktop"><RouterLink v-for="[key,path] in menu" :key="key" :to="path" :class="{'nav-active':route.path===path}">{{T[key]}}<ChevronDown v-if="key==='products'" :size="13"/></RouterLink></nav>
+    <nav class="nav-desktop">
+      <template v-for="[key,path] in menu" :key="key">
+        <div v-if="key==='products'" class="pc-nav-parent">
+          <RouterLink :to="path" :class="{'nav-active':route.path===path}">{{T[key]}} <ChevronDown :size="13"/></RouterLink>
+          <div class="pc-nav-dropdown">
+            <RouterLink to="/products">{{lang==='ar'?'كل المنتجات':lang==='tr'?'Tüm Ürünler':'All Products'}}</RouterLink>
+            <RouterLink v-for="c in wellnessCategories" :key="c.id" :to="{path:'/products',query:{category:c.id}}">{{c[lang] || c.en}}</RouterLink>
+          </div>
+        </div>
+        <RouterLink v-else :to="path" :class="{'nav-active':route.path===path}">{{T[key]}}</RouterLink>
+      </template>
+    </nav>
     <div class="header-actions"><button class="gold-button header-quote" @click="goQuote()">{{T.quote}} <ArrowRight :size="17"/></button><span class="header-separator"></span><Globe2 :size="18"/>
 <div class="flag-select">
   <button
@@ -196,7 +222,14 @@ onMounted(()=>{document.documentElement.dir=isRTL.value?'rtl':'ltr';document.doc
   </div>
 </div></section>
       <section ref="statsRef" class="metrics container"><div class="metric"><CalendarDays/><span><small>{{T.founded}}</small><strong class="count-value">{{foundedCount}}</strong></span></div><div class="metric"><ChartNoAxesColumnIncreasing/><span><strong class="count-value">${{salesCount.toFixed(1)}}M+</strong><small>{{T.sales}}</small></span></div><div class="metric"><Layers3/><span><strong class="count-value">{{brandCount}}+</strong><small>{{T.brandLines}}</small></span></div><div class="metric last"><Globe2/><span><b>{{T.presence}}</b><small>Gulf · Iraq · Bosnia & Herzegovina<br/>Lebanon · Georgia · Türkiye</small></span></div></section>
-      <section class="categories-section container section-space"><div class="section-top"><div><div class="section-kicker"><span class="gold-line"></span>{{T.catSmall}}</div><h2>{{T.catTitle}}</h2></div><button @click="openCat('All')" class="subtle-link">{{T.allCategories}} <ArrowRight :size="17"/></button></div><div class="category-grid"><button class="category-card" v-for="tile in tiles" :key="tile.title" @click="openCat(tile.category)"><component :is="tile.icon" :size="28" :stroke-width="1.4" class="category-icon"/><h3>{{tile.title}}</h3><div class="category-photo"><img :src="asset(products[tile.image-1].image)" :alt="tile.title" loading="lazy"/></div><span class="category-arrow"><ArrowUpRight :size="17"/></span></button></div></section>
+      <section class="categories-section container section-space"><div class="section-top"><div><div class="section-kicker"><span class="gold-line"></span>{{T.catSmall}}</div><h2>{{T.catTitle}}</h2></div><button @click="openCat('All')" class="subtle-link">{{T.allCategories}} <ArrowRight :size="17"/></button></div><div class="pc-home-select">
+        <select v-model="homeCategory" @change="browseHomeCategory" :aria-label="lang==='ar'?'اختر التصنيف':lang==='tr'?'Kategori seçin':'Choose product category'">
+          <option value="all">{{lang==='ar'?'اختر التصنيف أو تصفح كل المنتجات':lang==='tr'?'Kategori seçin veya tüm ürünlere bakın':'Choose a category or explore all products'}}</option>
+          <option v-for="c in wellnessCategories" :key="c.id" :value="c.id">{{c[lang] || c.en}}</option>
+        </select>
+        <span>{{lang==='ar'?'اختر فئة لتنتقل مباشرةً إلى منتجاتها':lang==='tr'?'Kategoriye göre ürünleri keşfedin':'Select a category to discover matching products'}}</span>
+      </div>
+      <div class="category-grid"><button class="category-card" v-for="tile in tiles" :key="tile.title" @click="openCat(tile.category)"><component :is="tile.icon" :size="28" :stroke-width="1.4" class="category-icon"/><h3>{{tile.title}}</h3><div class="category-photo"><img :src="asset(products[tile.image-1].image)" :alt="tile.title" loading="lazy"/></div><span class="category-arrow"><ArrowUpRight :size="17"/></span></button></div></section>
       <section class="ph-editorial container section-space">
         
 <div class="ph-editorial-photo">
@@ -258,7 +291,9 @@ onMounted(()=>{document.documentElement.dir=isRTL.value?'rtl':'ltr';document.doc
   />
 </template>
     <template v-else-if="route.name==='experience'"><section class="interior-hero experience-hero"><div class="container"><div class="section-kicker"><span class="gold-line"></span>{{T.experienceIntro}}</div><h1>{{T.experienceHeadline}}</h1><p>{{T.experiencePara}}</p></div></section><section class="experience-stats container"><div><CalendarDays/><span>2018</span><small>{{T.founded}}</small></div><div><ChartNoAxesColumnIncreasing/><span>$2.5M+</span><small>{{T.sales}}</small></div><div><Layers3/><span>20+</span><small>{{T.brandLines}}</small></div></section><div class="container muted-note">{{T.salesNote}}</div><section class="experience-markets container section-space"><div class="section-kicker"><span class="gold-line"></span>{{T.marketsSmall}}</div><h2>{{T.marketsTitle}}</h2><div class="market-chips"><span v-for="m in markets" :key="m[1]"><Globe2 :size="17"/>{{m[0]}}</span></div></section><section class="vision"><div class="container"><div class="section-kicker">{{T.vision}}</div><blockquote>“{{T.visionText}}”</blockquote><p>{{T.visionNote}}</p></div></section></template>
-    <template v-else-if="route.name==='products'"><section class="interior-hero products-hero"><div class="container"><div class="section-kicker"><span class="gold-line"></span>THE PROHERB COLLECTION</div><h1>{{T.portfolio}}</h1><p>{{T.catTitle}}</p></div></section><section class="catalog container"><div class="catalog-tools"><div class="filter-group"><Search :size="19"/><input v-model="term" :placeholder="T.search"/></div><select v-model="categoryFilter" :aria-label="T.category"><option value="All">{{T.allProducts}}</option><option v-for="c in categories.slice(1)" :key="c" :value="c">{{c}}</option></select><select v-model="brandFilter" :aria-label="T.brand"><option value="All">{{T.allBrands}}</option><option v-for="b in brands" :key="b" :value="b">{{b}}</option></select></div><p class="catalog-count">{{filtered.length}} {{T.result}}</p><div v-if="filtered.length" class="catalog-grid"><RouterLink v-for="p in filtered" :key="p.id" :to="`/products/${p.slug}`" class="catalog-product"><div class="catalog-img"><img :src="asset(p.image)" :alt="p.name" loading="lazy"/></div><span class="product-overline">{{p.brand}} / {{p.category}}</span><h3>{{p.name}}</h3><p>{{p.specification}}</p><span class="catalog-arrow"><ArrowUpRight :size="19"/></span></RouterLink></div><div v-else class="empty">{{T.noResults}}</div></section></template>
+    <template v-else-if="route.name==='products'">
+      <ProductsLuxury :lang="lang" :products="products" :asset="asset" @quote="goQuote" />
+    </template>
     <template v-else-if="route.name==='detail'&&activeProduct"><section class="product-detail container"><div class="product-detail-art" :style="{'--accent':activeProduct.color}"><button class="detail-back" @click="router.push('/products')"><ArrowLeft :size="16"/> {{T.products}}</button><img :src="asset(activeProduct.image)" :alt="activeProduct.name"/></div><div class="detail-copy"><span class="section-kicker"><span class="gold-line"></span>{{activeProduct.brand}} / {{T.detail}}</span><h1>{{activeProduct.name}}</h1><p>{{T.disclaimer}}</p><dl><div><dt>{{T.spec}}</dt><dd>{{activeProduct.specification}}</dd></div><div><dt>{{T.category}}</dt><dd>{{activeProduct.category}}</dd></div><div><dt>{{T.brand}}</dt><dd>{{activeProduct.brand}}</dd></div></dl><button class="green-button" @click="goQuote(activeProduct.name)">{{T.ask}} <ArrowRight :size="18"/></button></div></section><section class="related container section-space"><div class="section-top"><h2>{{T.related}}</h2><RouterLink to="/products" class="subtle-link">{{T.viewAll}} <ArrowRight :size="16"/></RouterLink></div><div class="catalog-grid"><RouterLink v-for="p in related" :key="p.id" class="catalog-product" :to="`/products/${p.slug}`"><div class="catalog-img"><img :src="asset(p.image)" :alt="p.name"/></div><h3>{{p.name}}</h3><p>{{p.specification}}</p></RouterLink></div></section></template>
     <template v-else-if="route.name==='contact'"><section class="interior-hero contact-hero"><div class="container"><div class="section-kicker"><span class="gold-line"></span>CONTACT / BUSINESS PARTNERSHIPS</div><h1>{{T.contactHeadline}}</h1><p>{{T.contactCopy}}</p></div></section><section class="contact-section container"><div class="contact-side"><div class="section-kicker"><span class="gold-line"></span>PROHERB · THE NATURAL LIFE</div><h2>{{T.inquiry}}</h2><p>{{T.inquiryText}}</p><div class="contact-facts"><span><MapPin :size="20"/> Türkiye</span><span><Globe2 :size="20"/> International Markets</span></div></div><form class="quote-form" @submit.prevent="prepareEmail"><div class="quote-form-title">{{T.quote}} <ArrowUpRight :size="24"/></div><div class="form-grid"><label>{{T.name}} *<input v-model.trim="form.name" required autocomplete="name"/></label><label>{{T.company}}<input v-model.trim="form.company" autocomplete="organization"/></label><label>{{T.country}} *<input v-model.trim="form.country" required/></label><label>{{T.email}} *<input v-model.trim="form.email" required type="email" autocomplete="email"/></label><label>{{T.phone}}<input v-model.trim="form.phone" type="tel" autocomplete="tel"/></label><label>{{T.quantity}}<input v-model.trim="form.quantity"/></label></div><label>{{T.product}}<input v-model.trim="form.product"/></label><label>{{T.message}}<textarea v-model.trim="form.message" rows="5"></textarea></label><div class="form-actions"><button type="submit" class="green-button"><Mail :size="18"/> {{T.sendEmail}}</button><button type="button" class="outline-button" @click="prepareWa"><MessageCircle :size="18"/> {{T.sendWa}}</button><button type="button" class="outline-button" @click="copyInquiry"><Check v-if="copied" :size="18"/><Copy v-else :size="18"/> {{copied?T.copySuccess:T.copy}}</button></div><p class="form-disclaimer">{{T.contactMissing}}</p></form></section></template>
   </main>

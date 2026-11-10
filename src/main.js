@@ -11,5 +11,20 @@ const routes=[
  {path:'/products/:slug',name:'detail',component:{template:'<div></div>'}},
  {path:'/contact',name:'contact',component:{template:'<div></div>'}},
  {path:'/:pathMatch(.*)*',redirect:'/'}]
-const router=createRouter({history: createWebHashHistory(),routes,scrollBehavior(to,from,saved){return saved||{top:0,behavior:'auto'}}})
+const router=createRouter({history: createWebHashHistory(),routes,
+scrollBehavior(to, from, savedPosition) {
+  if (
+    to.path === '/products' &&
+    from.path === '/products'
+  ) {
+    return false
+  }
+
+  if (savedPosition) {
+    return savedPosition
+  }
+
+  return { top: 0, behavior: 'auto' }
+}
+})
 createApp(App).use(router).mount('#app')
