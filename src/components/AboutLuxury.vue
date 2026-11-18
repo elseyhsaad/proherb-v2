@@ -22,7 +22,7 @@ const content = {
     intro: 'A diverse wellness company connecting product innovation, quality-minded thinking and international business relationships.',
     discover: 'Discover Our Story', quote: 'Become a Partner', scroll: 'DISCOVER PROHERB',
     storyEyebrow: '01 / THE PROHERB STORY', storyTitle: 'Where Natural Inspiration Meets Global Ambition.',
-    storyA: 'Founded in 2018, PROHERB has developed a broad and diverse portfolio of nutritional supplements, herbal oils, vitamins, minerals, and personal care products, connecting customers and distribution partners across Türkiye and international markets.</p><p><strong>Our journey began with a clear ambition:</strong> to make quality-focused wellness products more accessible while building a company known for product diversity, reliable communication, and lasting business relationships.</p><p>From everyday vitamins and essential nutrients to botanical oils, collagen, childrens supplements, sports nutrition, and specialized personal care solutions, our portfolio reflects the evolving needs of different consumers and markets.Inspired by nature and guided by opportunity, we continue to expand our product offering, bringing together multiple brands and wellness categories under the PROHERB name Over the years, PROHERB has established commercial relationships across the Gulf countries, Iraq, Bosnia & Herzegovina, Lebanon, Georgia, and Türkiye. These connections reflect our commitment to understanding different markets and developing meaningful, long-term partnerships For us, growth is not simply about introducing more products. It is about creating opportunities, simplifying communication, supporting our partners, and building relationships founded on mutual trust.Our ambition is to connect natural inspiration with international opportunities — creating a future where product diversity, quality, and trusted partnerships move forward together.',
+    storyA: 'Founded in 2018, PROHERB has developed a broad and diverse portfolio of nutritional supplements, herbal oils, vitamins, minerals, and personal care products, connecting customers and distribution partners across Türkiye and international markets.</p><p><strong>Our journey began with a clear ambition: to make quality-focused wellness products more accessible while building a company known for product diversity, reliable communication, and lasting business relationships.From everyday vitamins and essential nutrients to botanical oils, collagen, childrens supplements, sports nutrition, and specialized personal care solutions, our portfolio reflects the evolving needs of different consumers and markets.Inspired by nature and guided by opportunity, we continue to expand our product offering, bringing together multiple brands and wellness categories under the PROHERB name Over the years, PROHERB has established commercial relationships across the Gulf countries, Iraq, Bosnia & Herzegovina, Lebanon, Georgia, and Türkiye. These connections reflect our commitment to understanding different markets and developing meaningful, long-term partnerships For us, growth is not simply about introducing more products. It is about creating opportunities, simplifying communication, supporting our partners, and building relationships founded on mutual trust.Our ambition is to connect natural inspiration with international opportunities — creating a future where product diversity, quality, and trusted partnerships move forward together.',
     storyB: 'Our growth has been shaped by product diversity, accessible communication and a commitment to building long-term business relationships.',
     since: 'EST. 2018', philosophyEyebrow: '02 / OUR PHILOSOPHY', philosophyTitle: 'A Considered Approach to Wellness.',
     philosophyText: 'From ingredient-led inspiration to the products on the shelf, we believe every detail should support clarity, quality and confidence.',
@@ -69,13 +69,14 @@ import { computed } from 'vue'
 const t = computed(() => content[props.lang] || content.en)
 const brands = ['Pro Thera','Pro Active','Pro Like','Pro Muscle','Pro Collagen','Pro Vit','Pro Honey','Pro Sifa','Pro Slim','Pro Med','Pro Fresh','Pro LYT']
 const markets = ['Türkiye', 'Gulf Countries', 'Iraq', 'Bosnia & Herzegovina', 'Lebanon', 'Georgia']
+
 const productLines = [
- {key:'segment1',img:'/products/p13.webp',slug:'Vitamins & Minerals'},
- {key:'segment2',img:'/products/p32.webp',slug:'Herbal Oils'},
- {key:'segment3',img:'/products/p26.webp',slug:'Beauty & Care'},
- {key:'segment4',img:'/products/p06.webp',slug:'Kids & Family'},
- {key:'segment5',img:'/products/p22.webp',slug:'Sports & Energy'},
- {key:'segment6',img:'/products/p25.webp',slug:'Gummies'}
+  {key:'segment1', img:'/products/p13.webp', slug:'Vitamins & Minerals'},
+  {key:'segment2', img:'/products/p03.webp', slug:'Herbal Oils'},
+  {key:'segment3', img:'/products/p26.webp', slug:'Beauty & Care'},
+  {key:'segment4', img:'/products/p06.webp', slug:'Kids & Family'},
+  {key:'segment5', img:'/products/p22.webp', slug:'Sports & Energy'},
+  {key:'segment6', img:'/products/p25.webp', slug:'Gummies'}
 ]
 onMounted(() => {
  if (!pageRef.value || !('IntersectionObserver' in window)) return
@@ -132,7 +133,12 @@ onUnmounted(() => observer?.disconnect())
   <section class="ab-portfolio ab-section">
    <div class="container"><div class="ab-split-heading about-reveal"><div><span class="ab-kicker"><i></i>{{t.portfolioEyebrow}}</span><h2>{{t.portfolioTitle}}</h2></div><p>{{t.portfolioText}}</p></div>
     <div class="ab-product-grid">
-     <article v-for="(line,i) in productLines" :key="line.key" class="ab-product-card about-reveal"><span class="ab-card-index">0{{i+1}} / COLLECTION</span><img :src="line.img" :alt="t[line.key]" loading="lazy"/><h3>{{t[line.key]}}</h3></article>
+     <article v-for="(line,i) in productLines" :key="line.key" class="ab-product-card about-reveal"><span class="ab-card-index">0{{i+1}} / COLLECTION</span><img
+  :src="asset(line.img)"
+  :alt="t[line.key]"
+  class="ab-product-image"
+  loading="lazy"
+/><h3>{{t[line.key]}}</h3></article>
     </div>
     <RouterLink to="/products" class="ab-portfolio-link">{{t.viewPortfolio}} <ArrowUpRight :size="19"/></RouterLink>
    </div>

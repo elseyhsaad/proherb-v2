@@ -229,7 +229,11 @@ onMounted(()=>{document.documentElement.dir=isRTL.value?'rtl':'ltr';document.doc
         </select>
         <span>{{lang==='ar'?'اختر فئة لتنتقل مباشرةً إلى منتجاتها':lang==='tr'?'Kategoriye göre ürünleri keşfedin':'Select a category to discover matching products'}}</span>
       </div>
-      <div class="category-grid"><button class="category-card" v-for="tile in tiles" :key="tile.title" @click="openCat(tile.category)"><component :is="tile.icon" :size="28" :stroke-width="1.4" class="category-icon"/><h3>{{tile.title}}</h3><div class="category-photo"><img :src="asset(products[tile.image-1].image)" :alt="tile.title" loading="lazy"/></div><span class="category-arrow"><ArrowUpRight :size="17"/></span></button></div></section>
+      <div class="category-grid"><button class="category-card" v-for="tile in tiles" :key="tile.title" @click="openCat(tile.category)"><component :is="tile.icon" :size="28" :stroke-width="1.4" class="category-icon"/><h3>{{tile.title}}</h3><div class="category-photo"><img
+  :src="asset(`/products/p${String(tile.image).padStart(2, '0')}.webp`)"
+  :alt="tile.title"
+  loading="lazy"
+/></div><span class="category-arrow"><ArrowUpRight :size="17"/></span></button></div></section>
       <section class="ph-editorial container section-space">
         
 <div class="ph-editorial-photo">

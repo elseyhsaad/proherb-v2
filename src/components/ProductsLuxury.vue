@@ -13,7 +13,7 @@ const emit = defineEmits(['quote'])
 const route = useRoute()
 const router = useRouter()
 const term = ref('')
-const brand = ref('all')
+const productType = ref('all')
 const sortBy = ref('featured')
 const mobileFilters = ref(false)
 const activeCategory = computed(() => {
@@ -27,22 +27,109 @@ const ui = computed(() => ({
 }[props.lang] || {
  eyebrow:'PROHERB / PRODUCT COLLECTION', a:'Explore Wellness.', b:'Discover Possibilities.', intro:'Explore our diverse portfolio by wellness category, product line, or brand.', all:'All Products', browse:'Browse Categories', search:'Search products or brands...', brands:'All brands', sort:'Sort', featured:'Featured', az:'Name A–Z', za:'Name Z–A', results:'products', details:'View Product', inquire:'Request a Quote', clear:'Clear filters', empty:'No products in this selection yet.', emptySub:'Try a different category or browse the full collection.', filter:'Categories', note:'Category placement is for catalog navigation only; it does not establish medical indications or treatment claims.', new:'More products coming soon'
 }))
-const brands = computed(() => [...new Set(props.products.map(p=>p.brand).filter(Boolean))].sort())
+const productTypes = [
+  { id: 'capsules', en: 'Capsules', ar: 'كبسولات', tr: 'Kapsüller' },
+  { id: 'tablets', en: 'Tablets', ar: 'حبوب', tr: 'Tabletler' },
+  { id: 'gummies', en: 'Gummies', ar: 'غاميز', tr: 'Gummies' },
+  { id: 'syrups', en: 'Syrups', ar: 'شراب', tr: 'Şuruplar' },
+  { id: 'serums', en: 'Serums', ar: 'سيرومات', tr: 'Serumlar' },
+  { id: 'oils-drops', en: 'Oils & Drops', ar: 'زيوت وقطرات', tr: 'Yağlar ve Damlalar' },
+  { id: 'sprays', en: 'Sprays', ar: 'بخاخات', tr: 'Spreyler' },
+  { id: 'creams-gels', en: 'Creams & Gels', ar: 'كريمات وجل', tr: 'Kremler ve Jeller' },
+  { id: 'powders', en: 'Powders', ar: 'مساحيق', tr: 'Toz Ürünler' },
+  { id: 'effervescent', en: 'Effervescent', ar: 'فوّار', tr: 'Efervesan' },
+  { id: 'liquids', en: 'Liquid Supplements', ar: 'مكملات سائلة', tr: 'Sıvı Takviyeler' },
+  { id: 'personal-care', en: 'Personal Care', ar: 'عناية شخصية', tr: 'Kişisel Bakım' },
+  { id: 'other', en: 'Other Products', ar: 'منتجات أخرى', tr: 'Diğer Ürünler' },
+  { id: 'lozenges', en: 'Lozenges', ar: 'أقراص مص', tr: 'Pastiller' },
+{ id: 'lotions', en: 'Lotions', ar: 'لوشن', tr: 'Losyonlar' },
+{
+  id: 'honey',
+  en: 'Honey Products',
+  ar: 'منتجات العسل',
+  tr: 'Bal Ürünleri'
+},
+  
+]
+
+
+const productTypeIds = {
+
+honey: [70, 71, 72, 73, 74, 75,47],
+capsules: [
+  1,2,3,17,23,33,43,44,46,52,53,
+  55,56,57,60,61,66,68
+],
+
+  tablets: [4,13,15,16,21,39],
+
+  gummies: [25,26,27,28,29,30,40,41],
+
+  syrups: [5,6,7,8,9,10,11,12],
+
+  serums: [24],
+
+  'oils-drops': [18,37],
+
+  sprays: [48,51,65],
+
+  'creams-gels': [45,50],
+
+  powders: [22,62],
+
+  effervescent: [14],
+
+  liquids: [19,20,31,58],
+
+  'personal-care': [42,49],
+
+  lozenges: [54,63,67,69],
+
+  lotions: [64],
+
+  other: [47]
+}
+
+
+function getProductType(product) {
+  return product.productType ||
+    Object.keys(productTypeIds).find(type =>
+      productTypeIds[type].includes(Number(product.id))
+    ) ||
+    'other'
+}
 const counts = computed(() => Object.fromEntries(wellnessCategories.map(c => [c.id, props.products.filter(p => groupForProduct(p) === c.id).length])))
 const visible = computed(() => {
   let list = props.products.filter(p =>
-    (activeCategory.value === 'all' || groupForProduct(p) === activeCategory.value) &&
-    (brand.value === 'all' || p.brand === brand.value) &&
-    `${p.name} ${p.brand} ${p.specification}`.toLowerCase().includes(term.value.trim().toLowerCase())
+    (activeCategory.value === 'all' ||
+      groupForProduct(p) === activeCategory.value) &&
+    (productType.value === 'all' ||
+      getProductType(p) === productType.value) &&
+    `${p.name} ${p.brand} ${p.specification}`
+      .toLowerCase()
+      .includes(term.value.trim().toLowerCase())
   )
-  if (sortBy.value !== 'featured') list = [...list].sort((a,b)=>sortBy.value==='az' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name))
+
+  if (sortBy.value !== 'featured') {
+    list = [...list].sort((a, b) =>
+      sortBy.value === 'az'
+        ? a.name.localeCompare(b.name)
+        : b.name.localeCompare(a.name)
+    )
+  }
+
   return list
 })
 function chooseCategory(category) {
   router.push({path:'/products', query:category==='all' ? {} : {category}})
   mobileFilters.value = false
 }
-function clearFilters() { term.value=''; brand.value='all'; sortBy.value='featured'; chooseCategory('all') }
+function clearFilters() {
+  term.value = ''
+  productType.value = 'all'
+  sortBy.value = 'featured'
+  chooseCategory('all')
+}
 watch(() => route.query.category, () => { mobileFilters.value=false })
 </script>
 
@@ -67,10 +154,19 @@ watch(() => route.query.category, () => { mobileFilters.value=false })
     <section class="pc-container pc-content">
       <div class="pc-toolbar">
         <div class="pc-search"><Search :size="20"/><input v-model="term" :placeholder="ui.search" type="search" /></div>
-        <select v-model="brand" class="pc-select" :aria-label="ui.brands">
-          <option value="all">{{ui.brands}}</option>
-          <option v-for="b in brands" :key="b" :value="b">{{b}}</option>
-        </select>
+<select v-model="productType" class="pc-select" :aria-label="ui.filter">
+  <option value="all">
+    {{ lang === 'ar' ? 'جميع أنواع المنتجات' : lang === 'tr' ? 'Tüm Ürün Türleri' : 'All Product Types' }}
+  </option>
+
+  <option
+    v-for="type in productTypes"
+    :key="type.id"
+    :value="type.id"
+  >
+    {{ type[lang] || type.en }}
+  </option>
+</select>
         <select v-model="sortBy" class="pc-select" :aria-label="ui.sort">
           <option value="featured">{{ui.featured}}</option><option value="az">{{ui.az}}</option><option value="za">{{ui.za}}</option>
         </select>

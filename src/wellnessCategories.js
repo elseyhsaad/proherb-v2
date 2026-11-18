@@ -141,7 +141,8 @@ const productsByCategory = {
     53
   ],
   "women": [
-    40
+    40,
+    58
   ],
   "men": [
     39,
